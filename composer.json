@@ -1,5 +1,5 @@
 {
-	"name": "elearning-ag/php-object-filter",
+	"name": "elearning-ag/objectfilter",
 	"description": "A simple object filtering class",
 	"keywords": ["php", "filter"],
 	"require-dev": {
