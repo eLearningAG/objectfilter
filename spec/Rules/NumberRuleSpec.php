@@ -2,6 +2,8 @@
 
 namespace spec\ELearningAG\ObjectFilter\Rules;
 
+use ELearningAG\ObjectFilter\Rules\NumberRule;
+use ELearningAG\ObjectFilter\Rules\RangeRule;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -24,5 +26,15 @@ class NumberRuleSpec extends ObjectBehavior
 
     function it_checks_object_ids() {
         $this->check((object)['id' => 1])->shouldReturn(true);
+    }
+
+    function it_contains_only_other_number_rules() {
+        $other1 = new NumberRule(1);
+        $other2 = new NumberRule(3);
+        $other3 = new RangeRule(1,2);
+
+        $this->contains($other1)->shouldReturn(true);
+        $this->contains($other2)->shouldReturn(false);
+        $this->contains($other3)->shouldReturn(false);
     }
 }

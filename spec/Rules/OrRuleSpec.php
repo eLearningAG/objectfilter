@@ -31,5 +31,17 @@ class OrRuleSpec extends ObjectBehavior
 
         $this->check(4)->shouldReturn(true);
     }
+
+    function it_contains_other_rules() {
+
+        $other1 = new NumberRule(2);
+        $other2 = new RangeRule(21,29);
+        $other3 = new NumberRule(14);
+
+        $this->contains($other1)->shouldReturn(true);
+        $this->contains($other2)->shouldReturn(true);
+        $this->contains($other3)->shouldReturn(false);
+
+    }
 }
 

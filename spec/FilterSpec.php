@@ -7,7 +7,8 @@ use Prophecy\Argument;
 
 class FilterSpec extends ObjectBehavior
 {
-    function let() {
+    function let()
+    {
         $this->beConstructedWith(['price' => '30-40']);
     }
 
@@ -16,7 +17,8 @@ class FilterSpec extends ObjectBehavior
         $this->shouldHaveType('ELearningAG\ObjectFilter\Filter');
     }
 
-    function it_is_countable() {
+    function it_is_countable()
+    {
         $this->shouldHaveType('\Countable');
         $this->count()->shouldReturn(1);
     }
@@ -25,10 +27,11 @@ class FilterSpec extends ObjectBehavior
     {
         $count = $this->getWrappedObject()->count();
         $this->add('price', '10-20');
-        $this->count()->shouldReturn($count+1);
+        $this->count()->shouldReturn($count + 1);
     }
 
-    function it_check_its_rules() {
+    function it_check_its_rules()
+    {
         $item1 = ['price' => 3, 'category' => 1];
         $item2 = ['price' => 35, 'category' => 1];
         $item3 = ['price' => 35, 'category' => 4];
@@ -45,7 +48,8 @@ class FilterSpec extends ObjectBehavior
         $this->apply($item3)->shouldReturn(false);
     }
 
-    function it_has_a_string_representation() {
+    function it_has_a_string_representation()
+    {
 
         $this->add('category', '1,2');
 
@@ -53,7 +57,8 @@ class FilterSpec extends ObjectBehavior
 
     }
 
-    function it_treats_missing_attributes() {
+    function it_treats_missing_attributes()
+    {
 
         $item = [];
 
@@ -61,11 +66,13 @@ class FilterSpec extends ObjectBehavior
 
     }
 
-    function it_is_invokable() {
+    function it_is_invokable()
+    {
         $this([])->shouldReturn(false);
     }
 
-    function it_has_a_factory_method() {
+    function it_has_a_factory_method()
+    {
         $instance = $this::create(['price' => '1-10', 'category' => 4]);
         $instance->shouldHaveType('ELearningAG\ObjectFilter\Filter');
         $instance->count()->shouldReturn(2);
@@ -73,7 +80,8 @@ class FilterSpec extends ObjectBehavior
         $instance->apply(['price' => 5, 'category' => 13])->shouldReturn(false);
     }
 
-    function it_can_be_created_from_a_query_string() {
+    function it_can_be_created_from_a_query_string()
+    {
 
         $query = 'filter[price]=30-40&filter[category]=1,2';
 
@@ -89,12 +97,24 @@ class FilterSpec extends ObjectBehavior
 
         $instance->__toString()->shouldReturn($query);
 
-        $query2 = 'lang=en&'.$query.'&q=word';
+        $query2 = 'lang=en&' . $query . '&q=word';
 
         $this::createFromQueryString($query2)->__toString()->shouldReturn($query);
+
+
     }
 
-    function it_can_tell_if_a_rule_exists() {
+    function it_is_always_satisfied_if_empty() {
+        $query3 = '';
+
+        $instance = $this::createFromQueryString($query3);
+        $instance->__toString()->shouldReturn('');
+
+        $instance->apply(null)->shouldReturn(true);
+    }
+
+    function it_can_tell_if_a_rule_exists()
+    {
 
         $this->hasRule('price', '30-40')->shouldReturn(true);
         $this->hasRule('category', 1)->shouldReturn(false);

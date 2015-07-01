@@ -70,6 +70,15 @@ class OrRule extends Rule
         return empty($this->list);
     }
 
+    public function contains(Rule $other) {
+        foreach($this->list as $rule) {
+            if($rule->contains($other)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * Return a string representation for the OrRule instance
      *

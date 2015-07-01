@@ -2,6 +2,8 @@
 
 namespace spec\ELearningAG\ObjectFilter\Rules;
 
+use ELearningAG\ObjectFilter\Rules\NumberRule;
+use ELearningAG\ObjectFilter\Rules\RangeRule;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -40,5 +42,15 @@ class RangeRuleSpec extends ObjectBehavior
         $this->check(PHP_INT_MAX)->shouldReturn(true);
 
         $this->__toString()->shouldReturn('30-');
+    }
+
+    function it_contains_smaller_ranges_and_numbers() {
+        $other1 = new NumberRule(101);
+        $other2 = new RangeRule(150, 200);
+        $other3 = new RangeRule(99,199);
+
+        $this->contains($other1)->shouldReturn(true);
+        $this->contains($other2)->shouldReturn(true);
+        $this->contains($other3)->shouldReturn(false);
     }
 }

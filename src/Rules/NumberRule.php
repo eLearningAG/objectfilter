@@ -31,6 +31,10 @@ class NumberRule extends Rule
         $this->number = $number;
     }
 
+    public function getNumber() {
+        return $this->number;
+    }
+
     /**
      * Check if $other is equal to $number
      *
@@ -48,6 +52,13 @@ class NumberRule extends Rule
 
 
         return $this->number === $other;
+    }
+
+    public function contains(Rule $other) {
+        if($other instanceof static) {
+            return $other->number === $this->number;
+        }
+        return false;
     }
 
     /**

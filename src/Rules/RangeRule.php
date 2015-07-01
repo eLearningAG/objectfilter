@@ -73,6 +73,16 @@ class RangeRule extends Rule
         return $other <= $this->max;
     }
 
+    public function contains(Rule $other) {
+        if($other instanceof NumberRule) {
+            return $this->check($other->getNumber());
+        }
+        if($other instanceof static) {
+            return $this->checkMin($other->min) && $this->checkMax($other->max);
+        }
+        return false;
+    }
+
     /**
      * Return a string representation for the given instance
      *

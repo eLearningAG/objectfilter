@@ -14,7 +14,7 @@ class Filter implements \Countable
      *
      * @var array
      */
-    protected $rules;
+    protected $rules = [];
 
     /**
      * The last rule that failed
@@ -35,7 +35,7 @@ class Filter implements \Countable
      *
      * @param array $rules
      */
-    public function __construct(array $rules)
+    public function __construct(array $rules = [])
     {
         foreach ($rules as $attribute => $rule) {
             $this->add($attribute, $rule);
@@ -71,8 +71,10 @@ class Filter implements \Countable
         $query = [];
         parse_str($string, $query);
 
-        return new static($query['filter']);
-
+        if(isset($query['filter'])) {
+            return new static($query['filter']);
+        }
+        return new static();
     }
 
     /**
@@ -189,7 +191,7 @@ class Filter implements \Countable
     }
 
     /**
-     * Check if the requested rule is already attached
+     * Check if the requested rule is already contained.
      *
      * @param $attribute
      * @param $rule
@@ -202,7 +204,7 @@ class Filter implements \Countable
         }
         $rule = Rule::create($rule);
         foreach ($this->rules[$attribute] as $other) {
-            if ($rule == $other) {
+            if ($rule->contains($other)) {
                 return true;
             }
         }

@@ -17,6 +17,14 @@ abstract class Rule
     abstract public function check($arg);
 
     /**
+     * Check if another rule is contained within this rule
+     *
+     * @param Rule $other
+     * @return mixed
+     */
+    abstract public function contains(Rule $other);
+
+    /**
      * @return string
      */
     abstract public function __toString();
