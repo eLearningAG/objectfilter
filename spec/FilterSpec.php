@@ -115,9 +115,13 @@ class FilterSpec extends ObjectBehavior
 
     function it_can_tell_if_a_rule_exists()
     {
-
         $this->hasRule('price', '30-40')->shouldReturn(true);
         $this->hasRule('category', 1)->shouldReturn(false);
 
+        $instance = $this::createFromQueryString('filter[price]=0-20,20-50');
+
+        var_dump($instance->getWrappedObject()->__toString());
+
+        $instance->hasRule('price', '0-20')->shouldReturn(true);
     }
 }
