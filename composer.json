@@ -1,0 +1,24 @@
+{
+	"name": "elearning-ag/php-object-filter",
+	"description": "A simple object filtering class",
+	"keywords": ["php", "filter"],
+	"require-dev": {
+		"phpspec/phpspec": "^2.2"
+	},
+	"license": "GPL-3.0",
+	"authors": [{
+		"name": "die eLEarning AG",
+		"email": "info@elearning-ag.de"
+	}, {
+		"name": "Severin Neumann",
+		"email": "severin.neumann@altmuehlnet.de"
+	}],
+	"require": {
+
+	},
+	"autoload": {
+		"psr-4": {
+			"ELearningAG\\ObjectFilter\\": "src/"
+		}
+	}
+}

@@ -1,0 +1,4 @@
+suites:
+    filter_suite:
+        namespace: ELearningAG\ObjectFilter
+        psr4_prefix: ELearningAG\ObjectFilter
