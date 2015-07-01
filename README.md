@@ -12,7 +12,7 @@ Use composer to add this repository to your dependencies:
 ```json
 {
         "require": {
-                "elearning-ag/object-filter": "dev-master"
+                "elearning-ag/objectfilter": "dev-master"
         }
 }
 ```
