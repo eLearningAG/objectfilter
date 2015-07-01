@@ -1,6 +1,6 @@
 {
 	"name": "elearning-ag/objectfilter",
-	"description": "A simple object filtering class",
+	"description": "Simple object filtering",
 	"keywords": ["php", "filter"],
 	"require-dev": {
 		"phpspec/phpspec": "^2.2"
