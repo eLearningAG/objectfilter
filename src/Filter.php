@@ -37,7 +37,7 @@ class Filter implements \Countable
      */
     public function __construct(array $rules)
     {
-        foreach($rules as $attribute => $rule) {
+        foreach ($rules as $attribute => $rule) {
             $this->add($attribute, $rule);
         }
     }
@@ -48,12 +48,13 @@ class Filter implements \Countable
      * @param array|string $rules
      * @return Filter
      */
-    public static function create($rules) {
+    public static function create($rules)
+    {
 
-        if(is_array($rules)) {
+        if (is_array($rules)) {
             return new static($rules);
         }
-        if(is_string($rules)) {
+        if (is_string($rules)) {
             return static::createFromQueryString($rules);
         }
     }
@@ -64,7 +65,8 @@ class Filter implements \Countable
      * @param $string
      * @return static
      */
-    public static function createFromQueryString($string) {
+    public static function createFromQueryString($string)
+    {
 
         $query = [];
         parse_str($string, $query);
@@ -110,16 +112,17 @@ class Filter implements \Countable
      * @param $attribute
      * @return bool
      */
-    protected function check_attribute(Rule $rule, $item, $attribute) {
+    protected function check_attribute(Rule $rule, $item, $attribute)
+    {
         $value = null;
-        if(is_object($item) && isset($item->$attribute)) {
+        if (is_object($item) && isset($item->$attribute)) {
             $value = $item->$attribute;
         }
-        if(is_array($item) && isset($item[$attribute])) {
+        if (is_array($item) && isset($item[$attribute])) {
             $value = $item[$attribute];
         }
 
-        if($value === null || !$rule->check($value)) {
+        if ($value === null || !$rule->check($value)) {
             $this->failedRule = $rule;
             return false;
         }
@@ -135,9 +138,9 @@ class Filter implements \Countable
      */
     public function apply($item)
     {
-        foreach($this->rules as $attribute => $rules) {
-            foreach($rules as $rule) {
-                if(!$this->check_attribute($rule, $item, $attribute)) {
+        foreach ($this->rules as $attribute => $rules) {
+            foreach ($rules as $rule) {
+                if (!$this->check_attribute($rule, $item, $attribute)) {
                     return false;
                 }
             }
@@ -150,7 +153,8 @@ class Filter implements \Countable
      *
      * @return Rule
      */
-    public function getLastFailedRule() {
+    public function getLastFailedRule()
+    {
         return $this->failedRule;
     }
 
@@ -170,16 +174,38 @@ class Filter implements \Countable
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         $r = [];
-        foreach($this->rules as $attribute => $rules) {
+        foreach ($this->rules as $attribute => $rules) {
             $str = "filter[${attribute}]=";
             $s = [];
-            foreach($rules as $rule) {
+            foreach ($rules as $rule) {
                 $s[] = $rule->__toString();
             }
             $r[] = $str . implode(',', $s);
         }
         return implode('&', $r);
+    }
+
+    /**
+     * Check if the requested rule is already attached
+     *
+     * @param $attribute
+     * @param $rule
+     * @return bool
+     */
+    public function hasRule($attribute, $rule)
+    {
+        if (!isset($this->rules[$attribute])) {
+            return false;
+        }
+        $rule = Rule::create($rule);
+        foreach ($this->rules[$attribute] as $other) {
+            if ($rule == $other) {
+                return true;
+            }
+        }
+        return false;
     }
 }

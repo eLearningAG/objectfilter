@@ -93,4 +93,11 @@ class FilterSpec extends ObjectBehavior
 
         $this::createFromQueryString($query2)->__toString()->shouldReturn($query);
     }
+
+    function it_can_tell_if_a_rule_exists() {
+
+        $this->hasRule('price', '30-40')->shouldReturn(true);
+        $this->hasRule('category', 1)->shouldReturn(false);
+
+    }
 }
