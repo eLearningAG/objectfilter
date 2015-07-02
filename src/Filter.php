@@ -203,7 +203,7 @@ class Filter implements \Countable
             return false;
         }
         $rule = Rule::create($rule);
-        
+
         foreach ($this->rules[$attribute] as $other) {
             if ($other->contains($rule)) {
                 return true;

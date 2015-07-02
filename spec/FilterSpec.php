@@ -118,10 +118,10 @@ class FilterSpec extends ObjectBehavior
         $this->hasRule('price', '30-40')->shouldReturn(true);
         $this->hasRule('category', 1)->shouldReturn(false);
 
+        $this->add('category', '1,2,3');
+        $this->hasRule('category', '1,2,3')->shouldReturn(true);
+
         $instance = $this::createFromQueryString('filter[price]=0-20,20-50');
-
-        var_dump($instance->getWrappedObject()->__toString());
-
         $instance->hasRule('price', '0-20')->shouldReturn(true);
     }
 }

@@ -24,7 +24,7 @@ class OrRule extends Rule
     {
         $this->list = [];
 
-        foreach(func_get_args() as $arg) {
+        foreach (func_get_args() as $arg) {
             $this->add($arg);
         }
     }
@@ -34,21 +34,22 @@ class OrRule extends Rule
      *
      * @param mixed $rule
      */
-    protected function add($rule) {
-        if(is_array($rule)) {
-            foreach($rule as $subrule) {
+    protected function add($rule)
+    {
+        if (is_array($rule)) {
+            foreach ($rule as $subrule) {
                 $this->add($subrule);
             }
             return;
         }
-        if($rule instanceof Rule) {
+        if ($rule instanceof Rule) {
             $this->list[] = $rule;
         }
-        if(is_numeric($rule)) {
+        if (is_numeric($rule)) {
             $this->list[] = new NumberRule($rule);
         }
-        if(is_string($rule)) {
-            foreach(explode(',', $rule) as $subrule) {
+        if (is_string($rule)) {
+            foreach (explode(',', $rule) as $subrule) {
                 $this->list[] = Rule::create(trim($subrule));
             }
         }
@@ -62,17 +63,28 @@ class OrRule extends Rule
      */
     public function check($arg)
     {
-        foreach($this->list as $rule) {
-            if($rule->check($arg)) {
+        foreach ($this->list as $rule) {
+            if ($rule->check($arg)) {
                 return true;
             }
         }
         return empty($this->list);
     }
 
-    public function contains(Rule $other) {
-        foreach($this->list as $rule) {
-            if($rule->contains($other)) {
+    public function contains(Rule $other)
+    {
+
+        if ($other instanceof OrRule) {
+            foreach ($other->list as $subOther) {
+                if(!$this->contains($subOther)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        foreach ($this->list as $rule) {
+            if ($rule->contains($other)) {
                 return true;
             }
         }
@@ -87,7 +99,7 @@ class OrRule extends Rule
     public function __toString()
     {
         $r = [];
-        foreach($this->list as $rule) {
+        foreach ($this->list as $rule) {
             $r[] = $rule->__toString();
         }
         return implode(',', $r);
