@@ -10,7 +10,8 @@ use Prophecy\Argument;
 
 class NumberRuleSpec extends ObjectBehavior
 {
-    function let() {
+    function let()
+    {
         $this->beConstructedWith(1);
     }
 
@@ -20,19 +21,37 @@ class NumberRuleSpec extends ObjectBehavior
         $this->shouldHaveType('ELearningAG\ObjectFilter\Rule');
     }
 
-    function it_checks_if_the_value_is_equal_to_its_number() {
+    function it_checks_if_the_value_is_equal_to_its_number()
+    {
         $this->check(1)->shouldReturn(true);
         $this->check(4)->shouldReturn(false);
     }
 
-    function it_checks_object_ids() {
+    function it_checks_object_ids()
+    {
         $this->check((object)['id' => 1])->shouldReturn(true);
     }
 
-    function it_contains_only_other_number_rules() {
+    function it_checks_arrays()
+    {
+        $this->check([1, 2, 3])->shouldReturn(true);
+
+        $this->check([
+            (object)[
+                'id' => 1
+            ],
+            (object)[
+                'id' => 2
+            ]
+        ])->shouldReturn(true);
+    }
+
+
+    function it_contains_only_other_number_rules()
+    {
         $other1 = new NumberRule(1);
         $other2 = new NumberRule(3);
-        $other3 = new RangeRule(1,2);
+        $other3 = new RangeRule(1, 2);
         $other4 = new NoRule();
 
         $this->contains($other1)->shouldReturn(true);

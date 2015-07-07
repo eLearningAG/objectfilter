@@ -46,10 +46,19 @@ class NumberRule extends Rule
         if(is_object($other) && isset($other->id)) {
             return $other->id === $this->number;
         }
+
+        if(is_array($other) || $other instanceof \Traversable) {
+            foreach($other as $sub) {
+                if($this->check($sub)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         if(is_string($other)) {
             $other = (float)$other;
         }
-
 
         return $this->number === $other;
     }
