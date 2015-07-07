@@ -2,6 +2,7 @@
 
 namespace spec\ELearningAG\ObjectFilter\Rules;
 
+use ELearningAG\ObjectFilter\Rules\NoRule;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use ELearningAG\ObjectFilter\Rules\NumberRule;
@@ -37,10 +38,13 @@ class OrRuleSpec extends ObjectBehavior
         $other1 = new NumberRule(2);
         $other2 = new RangeRule(21,29);
         $other3 = new NumberRule(14);
+        $other4 = new NoRule();
+
 
         $this->contains($other1)->shouldReturn(true);
         $this->contains($other2)->shouldReturn(true);
         $this->contains($other3)->shouldReturn(false);
+        $this->contains($other4)->shouldReturn(true);
     }
 
     function it_contains_other_or_rules() {

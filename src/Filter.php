@@ -57,6 +57,8 @@ class Filter implements \Countable
         if (is_string($rules)) {
             return static::createFromQueryString($rules);
         }
+
+        return static::createFromQueryString('');
     }
 
     /**

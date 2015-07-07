@@ -74,6 +74,9 @@ class RangeRule extends Rule
     }
 
     public function contains(Rule $other) {
+        if($other instanceof NoRule) {
+            return true;
+        }
         if($other instanceof NumberRule) {
             return $this->check($other->getNumber());
         }

@@ -101,7 +101,6 @@ class FilterSpec extends ObjectBehavior
 
         $this::createFromQueryString($query2)->__toString()->shouldReturn($query);
 
-
     }
 
     function it_is_always_satisfied_if_empty() {

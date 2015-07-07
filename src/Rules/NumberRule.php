@@ -55,6 +55,9 @@ class NumberRule extends Rule
     }
 
     public function contains(Rule $other) {
+        if($other instanceof NoRule) {
+            return true;
+        }
         if($other instanceof static) {
             return $other->number === $this->number;
         }

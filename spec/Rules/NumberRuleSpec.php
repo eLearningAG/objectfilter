@@ -2,6 +2,7 @@
 
 namespace spec\ELearningAG\ObjectFilter\Rules;
 
+use ELearningAG\ObjectFilter\Rules\NoRule;
 use ELearningAG\ObjectFilter\Rules\NumberRule;
 use ELearningAG\ObjectFilter\Rules\RangeRule;
 use PhpSpec\ObjectBehavior;
@@ -32,9 +33,11 @@ class NumberRuleSpec extends ObjectBehavior
         $other1 = new NumberRule(1);
         $other2 = new NumberRule(3);
         $other3 = new RangeRule(1,2);
+        $other4 = new NoRule();
 
         $this->contains($other1)->shouldReturn(true);
         $this->contains($other2)->shouldReturn(false);
         $this->contains($other3)->shouldReturn(false);
+        $this->contains($other4)->shouldReturn(true);
     }
 }

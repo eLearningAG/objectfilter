@@ -29,5 +29,9 @@ class RuleSpec extends ObjectBehavior
         $this::create('-30')->shouldHaveType('ELearningAG\ObjectFilter\Rules\RangeRule');
 
         $this::create('10-')->shouldHaveType('ELearningAG\ObjectFilter\Rules\RangeRule');
+
+        $this::create(null)->shouldHaveType('ELearningAG\ObjectFilter\Rules\NoRule');
+
+        $this::create('')->shouldHaveType('ELearningAG\ObjectFilter\Rules\NoRule');
     }
 }
