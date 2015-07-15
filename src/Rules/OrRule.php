@@ -104,4 +104,18 @@ class OrRule extends Rule
         }
         return implode(',', $r);
     }
+
+    /**
+     * Return an array representation for the NoRule instance
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $r = [];
+        foreach($this->list as $rule) {
+            $r[] = $rule->toArray();
+        }
+        return $r;
+    }
 }

@@ -57,6 +57,22 @@ class FilterSpec extends ObjectBehavior
 
     }
 
+    function it_has_an_array_representation()
+    {
+        $this->add('category', '1,2');
+        $this->toArray()->shouldReturn([
+            'price' => [
+                [30, 40]
+            ],
+            'category' => [
+                [
+                    [1],
+                    [2]
+                ]
+            ]
+        ]);
+    }
+
     function it_treats_missing_attributes()
     {
 
@@ -103,7 +119,8 @@ class FilterSpec extends ObjectBehavior
 
     }
 
-    function it_is_always_satisfied_if_empty() {
+    function it_is_always_satisfied_if_empty()
+    {
         $query3 = '';
 
         $instance = $this::createFromQueryString($query3);

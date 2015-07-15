@@ -39,7 +39,7 @@ class RangeRule extends Rule
      */
     public function check($arg)
     {
-        if(!is_numeric($arg)) {
+        if (!is_numeric($arg)) {
             return false;
         }
         return $this->checkMin($arg) && $this->checkMax($arg);
@@ -52,8 +52,9 @@ class RangeRule extends Rule
      * @param $other
      * @return bool
      */
-    protected function checkMin($other) {
-        if($this->min === '') {
+    protected function checkMin($other)
+    {
+        if ($this->min === '') {
             return true;
         }
         return $other >= $this->min;
@@ -66,21 +67,23 @@ class RangeRule extends Rule
      * @param $other
      * @return bool
      */
-    protected function checkMax($other) {
-        if($this->max === '') {
+    protected function checkMax($other)
+    {
+        if ($this->max === '') {
             return true;
         }
         return $other <= $this->max;
     }
 
-    public function contains(Rule $other) {
-        if($other instanceof NoRule) {
+    public function contains(Rule $other)
+    {
+        if ($other instanceof NoRule) {
             return true;
         }
-        if($other instanceof NumberRule) {
+        if ($other instanceof NumberRule) {
             return $this->check($other->getNumber());
         }
-        if($other instanceof static) {
+        if ($other instanceof static) {
             return $this->checkMin($other->min) && $this->checkMax($other->max);
         }
         return false;
@@ -93,6 +96,19 @@ class RangeRule extends Rule
      */
     public function __toString()
     {
-        return $this->min.'-'.$this->max;
+        return $this->min . '-' . $this->max;
+    }
+
+    /**
+     * Return an array representation for the NoRule instance
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [
+            $this->min !== '' ? (int)$this->min : '',
+            $this->max !== '' ? (int)$this->max : ''
+        ];
     }
 }

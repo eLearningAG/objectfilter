@@ -27,12 +27,22 @@ class NoRule extends Rule
     }
 
     /**
-     * Return a string representation for the OrRule instance
+     * Return a string representation for the NoRule instance
      *
      * @return string
      */
     public function __toString()
     {
         return '';
+    }
+
+    /**
+     * Return an array representation for the NoRule instance
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [];
     }
 }

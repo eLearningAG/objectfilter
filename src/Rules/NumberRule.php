@@ -82,4 +82,14 @@ class NumberRule extends Rule
     {
         return $this->number;
     }
+
+    /**
+     * Return an array representation for the NoRule instance
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        return [$this->number];
+    }
 }

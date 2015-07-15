@@ -30,6 +30,8 @@ abstract class Rule
      */
     abstract public function __toString();
 
+    abstract public function toArray();
+
     /**
      * A factory method that tries to create the correct concrete rule implementation for
      * a given string representation. The following rules are available:

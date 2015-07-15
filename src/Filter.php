@@ -213,4 +213,22 @@ class Filter implements \Countable
         }
         return false;
     }
+
+    /**
+     * Returns a array representation for the filter instance
+     *
+     * @return array
+     */
+    public function toArray() {
+        $r = [];
+        foreach($this->rules as $attribute => $rules) {
+            $s = [];
+            foreach($rules as $rule) {
+                $s[] = $rule->toArray();
+            }
+            $r[$attribute] = $s;
+        }
+        return $r;
+    }
+
 }

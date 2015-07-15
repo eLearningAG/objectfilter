@@ -43,6 +43,7 @@ class RangeRuleSpec extends ObjectBehavior
         $this->check(PHP_INT_MAX)->shouldReturn(true);
 
         $this->__toString()->shouldReturn('30-');
+        $this->toArray()->shouldReturn([30,'']);
     }
 
     function it_contains_smaller_ranges_and_numbers() {
