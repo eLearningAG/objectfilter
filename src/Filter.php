@@ -2,12 +2,14 @@
 
 namespace ELearningAG\ObjectFilter;
 
+use Traversable;
+
 /**
  * If applied an instance of this Filter class checks if the attributes of a given object
  * comply to a set of rules.
  *
  */
-class Filter implements \Countable
+class Filter implements \Countable, \IteratorAggregate
 {
     /**
      * The rules checked by this filter instance
@@ -231,4 +233,15 @@ class Filter implements \Countable
         return $r;
     }
 
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Retrieve an external iterator
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->rules);
+    }
 }
