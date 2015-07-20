@@ -3,11 +3,12 @@
 namespace ELearningAG\ObjectFilter\Rules;
 
 use ELearningAG\ObjectFilter\Rule;
+use Traversable;
 
 /**
  * An instance of OrRule checks if a given argument satisfies at least one sub rule.
  */
-class OrRule extends Rule
+class OrRule extends Rule implements \IteratorAggregate
 {
 
     /**
@@ -117,5 +118,26 @@ class OrRule extends Rule
             $r[] = $rule->toArray();
         }
         return $r;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.0.0)<br/>
+     * Retrieve an external iterator
+     * @link http://php.net/manual/en/iteratoraggregate.getiterator.php
+     * @return Traversable An instance of an object implementing <b>Iterator</b> or
+     * <b>Traversable</b>
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->list);
+    }
+
+    /**
+     * Return all contained rules
+     *
+     * @return array
+     */
+    public function getRules() {
+        return $this->list;
     }
 }

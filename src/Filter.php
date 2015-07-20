@@ -2,6 +2,7 @@
 
 namespace ELearningAG\ObjectFilter;
 
+use Illuminate\Database\Query\Builder;
 use Traversable;
 
 /**
@@ -153,6 +154,7 @@ class Filter implements \Countable, \IteratorAggregate
         }
         return true;
     }
+
 
     /**
      * Return the last failed rule

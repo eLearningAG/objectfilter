@@ -45,6 +45,15 @@ class RangeRule extends Rule
         return $this->checkMin($arg) && $this->checkMax($arg);
     }
 
+    public function getMax() {
+        return $this->max !== '' ? (int)$this->max : '';
+    }
+
+    public function getMin() {
+        return $this->min !== '' ? (int)$this->min : '';
+    }
+
+
     /**
      * Check if other is greater than or equal the minimum.
      * Return true, if the minimum is empty ('')
@@ -107,8 +116,8 @@ class RangeRule extends Rule
     public function toArray()
     {
         return [
-            $this->min !== '' ? (int)$this->min : '',
-            $this->max !== '' ? (int)$this->max : ''
+            $this->getMin(),
+            $this->getMax()
         ];
     }
 }
