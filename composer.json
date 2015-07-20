@@ -11,8 +11,8 @@
 		"email": "info@elearning-ag.de"
 	}, {
 		"name": "Severin Neumann",
-		"email": "severin.neumann@altmuehlnet.de"
-	}]
+		"email": "s.neumann@elearning-ag.de"
+	}],
 	"autoload": {
 		"psr-4": {
 			"ELearningAG\\ObjectFilter\\": "src/"
